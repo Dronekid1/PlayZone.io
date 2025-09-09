@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parsec Unblocked - Remote Gaming Access</title>
+    <title>Cloud Browser - Unblocked Web Access</title>
     <style>
         * {
             margin: 0;
@@ -23,119 +23,144 @@
         .header {
             background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
-            padding: 20px;
-            text-align: center;
+            padding: 15px 20px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .logo {
-            font-size: 36px;
+            font-size: 24px;
             font-weight: bold;
-            margin-bottom: 10px;
+            text-align: center;
             background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .subtitle {
-            font-size: 18px;
-            opacity: 0.8;
-        }
-
-        .container {
-            flex: 1;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 40px 20px;
+        .browser-controls {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px;
             display: flex;
-            flex-direction: column;
+            gap: 10px;
             align-items: center;
+            flex-wrap: wrap;
         }
 
-        .access-panel {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            width: 100%;
-            max-width: 800px;
-            margin-bottom: 30px;
-        }
-
-        .parsec-frame {
-            width: 100%;
-            height: 80vh;
+        .url-input {
+            flex: 1;
+            min-width: 300px;
+            padding: 12px 15px;
             border: none;
-            border-radius: 15px;
-            background: white;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-radius: 25px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 14px;
+            color: #333;
         }
 
-        .access-btn {
-            padding: 15px 30px;
-            font-size: 20px;
-            background: linear-gradient(45deg, #4CAF50, #45a049);
+        .browser-btn {
+            padding: 12px 20px;
+            background: #4CAF50;
             color: white;
             border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin: 20px 10px;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .access-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
-        }
-
-        .quick-links {
-            display: flex;
-            gap: 15px;
-            margin: 20px 0;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .quick-link {
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.2);
             border-radius: 25px;
             cursor: pointer;
-            font-size: 14px;
+            font-weight: bold;
             transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
-        .quick-link:hover {
-            background: rgba(255, 255, 255, 0.3);
+        .browser-btn:hover {
+            background: #45a049;
             transform: translateY(-2px);
         }
 
-        .info-section {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            border-radius: 20px;
-            padding: 30px;
-            margin: 20px 0;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+        .browser-btn.secondary {
+            background: #2196F3;
+        }
+
+        .browser-btn.secondary:hover {
+            background: #1976D2;
+        }
+
+        .quick-access {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .quick-btn {
+            padding: 6px 12px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            border-radius: 15px;
+            color: white;
+            cursor: pointer;
+            font-size: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .quick-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        .proxy-selector {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-left: 10px;
+        }
+
+        .proxy-select {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            color: #333;
+            font-size: 12px;
+        }
+
+        .browser-frame {
+            flex: 1;
             width: 100%;
-            max-width: 800px;
+            border: none;
+            background: white;
+            min-height: calc(100vh - 140px);
         }
 
-        .info-section h3 {
-            margin-bottom: 15px;
-            color: #4ECDC4;
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 20px;
+            font-size: 16px;
         }
 
-        .info-section p {
-            line-height: 1.6;
-            opacity: 0.9;
+        .status-bar {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 8px 20px;
+            font-size: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .connection-status {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #4CAF50;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
         }
 
         .fullscreen-btn {
@@ -145,30 +170,38 @@
             background: #FF4757;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
+            padding: 8px 15px;
+            border-radius: 20px;
             cursor: pointer;
             font-weight: bold;
             z-index: 1000;
             display: none;
         }
 
+        .error-message {
+            display: none;
+            background: rgba(255, 0, 0, 0.2);
+            border: 1px solid rgba(255, 0, 0, 0.5);
+            padding: 15px;
+            margin: 10px;
+            border-radius: 10px;
+            text-align: center;
+        }
+
         @media (max-width: 768px) {
-            .access-panel {
-                padding: 20px;
+            .browser-controls {
+                flex-direction: column;
+                align-items: stretch;
             }
             
-            .parsec-frame {
-                height: 60vh;
+            .url-input {
+                min-width: auto;
+                margin-bottom: 10px;
             }
             
-            .logo {
-                font-size: 28px;
-            }
-            
-            .access-btn {
-                font-size: 16px;
-                padding: 12px 24px;
+            .proxy-selector {
+                margin-left: 0;
+                margin-top: 10px;
             }
         }
     </style>
@@ -177,81 +210,155 @@
     <button class="fullscreen-btn" id="exitFullscreen" onclick="exitFullscreen()">Exit Fullscreen</button>
 
     <div class="header">
-        <div class="logo">Parsec Unblocked</div>
-        <div class="subtitle">Access Remote Gaming Anywhere</div>
+        <div class="logo">🌐 Cloud Browser</div>
     </div>
 
-    <div class="container">
-        <div class="access-panel">
-            <h2 style="margin-bottom: 20px;">🎮 Access Parsec</h2>
-            <p style="margin-bottom: 30px; opacity: 0.8;">
-                Click below to access Parsec for remote gaming and desktop streaming
-            </p>
-            
-            <div class="quick-links">
-                <div class="quick-link" onclick="loadParsec('web')">Web Client</div>
-                <div class="quick-link" onclick="loadParsec('download')">Download Page</div>
-                <div class="quick-link" onclick="loadParsec('support')">Support</div>
-            </div>
-            
-            <button class="access-btn" onclick="loadParsec('main')">Launch Parsec</button>
-            <button class="access-btn" onclick="toggleFullscreen()" style="background: linear-gradient(45deg, #2196F3, #1976D2);">Fullscreen</button>
+    <div class="browser-controls">
+        <input type="text" class="url-input" id="urlInput" placeholder="Enter website URL (e.g., web.parsec.app)" value="">
+        <button class="browser-btn" onclick="loadSite()">Go</button>
+        <button class="browser-btn secondary" onclick="toggleFullscreen()">Fullscreen</button>
+        
+        <div class="proxy-selector">
+            <span style="font-size: 12px;">Proxy:</span>
+            <select class="proxy-select" id="proxySelect" onchange="updateProxy()">
+                <option value="corsproxy">CORS Proxy</option>
+                <option value="allorigins">AllOrigins</option>
+                <option value="thingproxy">ThingProxy</option>
+                <option value="crossorigin">CrossOrigin</option>
+                <option value="direct">Direct (No Proxy)</option>
+            </select>
         </div>
 
-        <iframe id="parsecFrame" class="parsec-frame" style="display: none;"></iframe>
-
-        <div class="info-section">
-            <h3>What is Parsec?</h3>
-            <p>
-                Parsec is a powerful remote desktop application that lets you stream games and applications 
-                from your computer to any device. Perfect for accessing your gaming PC from school, work, 
-                or anywhere with an internet connection.
-            </p>
+        <div class="quick-access">
+            <button class="quick-btn" onclick="loadQuickSite('https://web.parsec.app')">Parsec Web</button>
+            <button class="quick-btn" onclick="loadQuickSite('https://parsec.app')">Parsec Main</button>
+            <button class="quick-btn" onclick="loadQuickSite('https://google.com')">Google</button>
+            <button class="quick-btn" onclick="loadQuickSite('https://youtube.com')">YouTube</button>
+            <button class="quick-btn" onclick="loadQuickSite('https://discord.com')">Discord</button>
+            <button class="quick-btn" onclick="loadQuickSite('https://github.com')">GitHub</button>
         </div>
+    </div>
 
-        <div class="info-section">
-            <h3>How to Use</h3>
-            <p>
-                1. Click "Launch Parsec" to access the web interface<br>
-                2. Sign in or create a free Parsec account<br>
-                3. Connect to your home computer or join a friend's session<br>
-                4. Enjoy gaming remotely with low latency streaming
-            </p>
+    <div class="error-message" id="errorMessage"></div>
+    <div class="loading" id="loading">🌐 Loading website...</div>
+
+    <iframe id="browserFrame" class="browser-frame"></iframe>
+
+    <div class="status-bar">
+        <div class="connection-status">
+            <div class="status-dot"></div>
+            <span id="statusText">Ready</span>
         </div>
+        <div id="currentUrl">Enter a URL to browse</div>
     </div>
 
     <script>
-        function loadParsec(type) {
-            const frame = document.getElementById('parsecFrame');
-            let url;
-            
-            switch(type) {
-                case 'main':
-                case 'web':
-                    url = 'https://web.parsec.app/';
-                    break;
-                case 'download':
-                    url = 'https://parsec.app/downloads';
-                    break;
-                case 'support':
-                    url = 'https://support.parsec.app/';
-                    break;
-                default:
-                    url = 'https://parsec.app/';
+        let currentProxy = 'corsproxy';
+        
+        const proxies = {
+            'corsproxy': 'https://corsproxy.io/?',
+            'allorigins': 'https://api.allorigins.win/raw?url=',
+            'thingproxy': 'https://thingproxy.freeboard.io/fetch/',
+            'crossorigin': 'https://crossorigin.me/',
+            'direct': ''
+        };
+
+        function updateProxy() {
+            currentProxy = document.getElementById('proxySelect').value;
+            console.log('Proxy changed to:', currentProxy);
+        }
+
+        function loadSite(url) {
+            if (!url) {
+                url = document.getElementById('urlInput').value.trim();
             }
             
-            frame.src = url;
-            frame.style.display = 'block';
+            if (!url) {
+                alert('Please enter a URL');
+                return;
+            }
+
+            // Add https:// if no protocol specified
+            if (!url.startsWith('http://') && !url.startsWith('https://')) {
+                url = 'https://' + url;
+            }
+
+            const frame = document.getElementById('browserFrame');
+            const loading = document.getElementById('loading');
+            const errorMessage = document.getElementById('errorMessage');
+            const statusText = document.getElementById('statusText');
+            const currentUrl = document.getElementById('currentUrl');
             
-            // Smooth scroll to frame
-            frame.scrollIntoView({ behavior: 'smooth' });
+            // Hide error message
+            errorMessage.style.display = 'none';
+            
+            // Show loading
+            loading.style.display = 'block';
+            statusText.textContent = 'Connecting...';
+            
+            let finalUrl;
+            
+            if (currentProxy === 'direct') {
+                finalUrl = url;
+            } else {
+                const proxyBase = proxies[currentProxy];
+                if (currentProxy === 'allorigins') {
+                    finalUrl = proxyBase + encodeURIComponent(url);
+                } else {
+                    finalUrl = proxyBase + url;
+                }
+            }
+
+            console.log('Loading URL:', finalUrl);
+            
+            // Set iframe source
+            frame.src = finalUrl;
+            document.getElementById('urlInput').value = url;
+            currentUrl.textContent = url;
+
+            // Handle iframe load events
+            frame.onload = function() {
+                loading.style.display = 'none';
+                statusText.textContent = 'Connected';
+                console.log('Frame loaded successfully');
+            };
+
+            frame.onerror = function() {
+                loading.style.display = 'none';
+                statusText.textContent = 'Connection Error';
+                showError('Failed to load website. Try a different proxy or check the URL.');
+            };
+
+            // Timeout fallback
+            setTimeout(() => {
+                if (loading.style.display !== 'none') {
+                    loading.style.display = 'none';
+                    statusText.textContent = 'Connected';
+                }
+            }, 10000);
+        }
+
+        function loadQuickSite(url) {
+            document.getElementById('urlInput').value = url;
+            loadSite(url);
+        }
+
+        function showError(message) {
+            const errorMessage = document.getElementById('errorMessage');
+            errorMessage.textContent = message;
+            errorMessage.style.display = 'block';
+            
+            // Auto-hide error after 5 seconds
+            setTimeout(() => {
+                errorMessage.style.display = 'none';
+            }, 5000);
         }
 
         function toggleFullscreen() {
-            const frame = document.getElementById('parsecFrame');
+            const frame = document.getElementById('browserFrame');
             
             if (!frame.src) {
-                alert('Please launch Parsec first');
+                alert('Please load a website first');
                 return;
             }
 
@@ -264,19 +371,20 @@
                 frame.style.width = '100vw';
                 frame.style.height = '100vh';
                 frame.style.zIndex = '999';
-                frame.style.borderRadius = '0';
                 document.getElementById('exitFullscreen').style.display = 'block';
+                document.getElementById('statusText').textContent = 'Fullscreen Mode';
             }
         }
 
         function exitFullscreen() {
-            const frame = document.getElementById('parsecFrame');
+            const frame = document.getElementById('browserFrame');
             frame.style.position = 'static';
             frame.style.width = '100%';
-            frame.style.height = '80vh';
+            frame.style.height = 'auto';
+            frame.style.minHeight = 'calc(100vh - 140px)';
             frame.style.zIndex = 'auto';
-            frame.style.borderRadius = '15px';
             document.getElementById('exitFullscreen').style.display = 'none';
+            document.getElementById('statusText').textContent = 'Connected';
         }
 
         // Keyboard shortcuts
@@ -284,13 +392,31 @@
             if (e.key === 'Escape') {
                 exitFullscreen();
             }
+            
+            if (e.key === 'Enter' && document.activeElement === document.getElementById('urlInput')) {
+                loadSite();
+            }
         });
 
-        // Auto-load Parsec on page load
+        // Auto-focus URL input
         window.addEventListener('load', function() {
-            // Uncomment the line below to auto-launch Parsec
-            // loadParsec('main');
+            document.getElementById('urlInput').focus();
+            document.getElementById('statusText').textContent = 'Ready to browse';
+            
+            // Try to load Parsec automatically with a delay
+            setTimeout(() => {
+                if (!document.getElementById('browserFrame').src) {
+                    document.getElementById('urlInput').value = 'web.parsec.app';
+                    loadSite('https://web.parsec.app');
+                }
+            }, 1000);
         });
+
+        // Refresh proxy list periodically
+        setInterval(() => {
+            const statusDot = document.querySelector('.status-dot');
+            statusDot.style.animation = 'pulse 2s infinite';
+        }, 30000);
     </script>
 </body>
 </html>
