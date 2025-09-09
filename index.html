@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameHub.io - Unblocked Games</title>
+    <title>Parsec Unblocked - Remote Gaming Access</title>
     <style>
         * {
             margin: 0;
@@ -12,917 +12,285 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
-        /* Header */
         .header {
             background: rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(10px);
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding: 20px;
+            text-align: center;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .logo {
-            font-size: 28px;
+            font-size: 36px;
             font-weight: bold;
+            margin-bottom: 10px;
             background: linear-gradient(45deg, #FF6B6B, #4ECDC4);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .search-container {
-            flex: 1;
-            max-width: 500px;
-            margin: 0 30px;
-            position: relative;
-        }
-
-        .search-input {
-            width: 100%;
-            padding: 12px 45px 12px 20px;
-            border: none;
-            border-radius: 25px;
-            background: rgba(255, 255, 255, 0.15);
-            color: white;
-            font-size: 16px;
-            backdrop-filter: blur(10px);
-        }
-
-        .search-input::placeholder {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .search-btn {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: none;
-            border: none;
-            color: white;
+        .subtitle {
             font-size: 18px;
-            cursor: pointer;
-            padding: 8px;
+            opacity: 0.8;
         }
 
-        .user-section {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .login-btn, .logout-btn, .dev-btn {
-            padding: 8px 16px;
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            cursor: pointer;
-            font-size: 14px;
-            transition: all 0.3s ease;
-        }
-
-        .login-btn:hover, .logout-btn:hover, .dev-btn:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        /* Sidebar */
-        .sidebar {
-            position: fixed;
-            left: 0;
-            top: 70px;
-            width: 60px;
-            height: calc(100vh - 70px);
-            background: rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
-            z-index: 100;
+        .container {
+            flex: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 20px 0;
-            gap: 20px;
         }
 
-        .sidebar-item {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 18px;
-            transition: all 0.3s ease;
-        }
-
-        .sidebar-item:hover, .sidebar-item.active {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.1);
-        }
-
-        /* Main content */
-        .main-content {
-            margin-left: 80px;
-            padding: 20px;
-            min-height: calc(100vh - 70px);
-        }
-
-        /* Games grid */
-        .games-section {
-            display: block;
-        }
-
-        .section-title {
-            font-size: 24px;
-            margin-bottom: 20px;
-            font-weight: bold;
-        }
-
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-        }
-
-        .game-card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            overflow: hidden;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .game-card:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.15);
-        }
-
-        .game-image {
-            width: 100%;
-            height: 120px;
-            background: linear-gradient(45deg, #FF6B6B, #4ECDC4, #45B7D1, #96CEB4, #FFEAA7, #DDA0DD);
-            background-size: 300% 300%;
-            animation: gradientShift 3s ease infinite;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 36px;
-            color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        .game-info {
-            padding: 15px;
-        }
-
-        .game-title {
-            font-size: 16px;
-            font-weight: bold;
-            margin-bottom: 8px;
-        }
-
-        .game-description {
-            font-size: 12px;
-            opacity: 0.8;
-            line-height: 1.3;
-        }
-
-        /* Browser section */
-        .browser-section {
-            display: none;
-        }
-
-        .browser-controls {
-            background: rgba(0, 0, 0, 0.3);
-            padding: 15px;
-            border-radius: 10px 10px 0 0;
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-
-        .url-input {
-            flex: 1;
-            padding: 8px 15px;
-            border: none;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            font-size: 14px;
-        }
-
-        .url-input::placeholder {
-            color: rgba(255, 255, 255, 0.6);
-        }
-
-        .browser-btn {
-            padding: 8px 15px;
-            background: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 14px;
-        }
-
-        .browser-frame {
-            width: 100%;
-            height: 70vh;
-            border: none;
-            background: white;
-            border-radius: 0 0 10px 10px;
-        }
-
-        /* Leaderboard */
-        .leaderboard-section {
-            display: none;
-        }
-
-        .leaderboard-container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 20px;
-            max-width: 600px;
-        }
-
-        .leaderboard-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px;
-            margin-bottom: 10px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            border-left: 4px solid #FFD700;
-        }
-
-        .leaderboard-item:nth-child(2) { border-left-color: #C0C0C0; }
-        .leaderboard-item:nth-child(3) { border-left-color: #CD7F32; }
-        .leaderboard-item:nth-child(n+4) { border-left-color: #4ECDC4; }
-
-        .player-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .rank {
-            font-size: 18px;
-            font-weight: bold;
-            width: 30px;
-            text-align: center;
-        }
-
-        .player-name {
-            font-size: 16px;
-            font-weight: bold;
-        }
-
-        .play-time {
-            font-size: 16px;
-            color: #4ECDC4;
-            font-weight: bold;
-        }
-
-        /* Dev Panel */
-        .dev-section {
-            display: none;
-        }
-
-        .dev-auth {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 30px;
-            max-width: 400px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .dev-panel {
-            display: none;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border-radius: 15px;
-            padding: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-            color: white;
-        }
-
-        .form-group input, .form-group textarea, .form-group select {
-            width: 100%;
-            padding: 12px;
-            border: none;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.9);
-            font-size: 14px;
-        }
-
-        .form-group textarea {
-            height: 100px;
-            resize: vertical;
-        }
-
-        .btn {
-            padding: 12px 24px;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary {
-            background: #4CAF50;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #45a049;
-        }
-
-        .btn-danger {
-            background: #f44336;
-            color: white;
-        }
-
-        .btn-danger:hover {
-            background: #da190b;
-        }
-
-        .game-management {
-            margin-top: 30px;
-        }
-
-        .game-list {
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-        .game-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px;
-            margin-bottom: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-        }
-
-        /* Login Modal */
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.7);
-            z-index: 1000;
-            backdrop-filter: blur(5px);
-        }
-
-        .modal-content {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+        .access-panel {
             background: rgba(255, 255, 255, 0.1);
             backdrop-filter: blur(15px);
-            border-radius: 15px;
-            padding: 30px;
-            max-width: 400px;
-            width: 90%;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
             border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 30px;
         }
 
-        .close-modal {
-            position: absolute;
-            top: 15px;
-            right: 20px;
-            font-size: 24px;
-            cursor: pointer;
+        .parsec-frame {
+            width: 100%;
+            height: 80vh;
+            border: none;
+            border-radius: 15px;
+            background: white;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .access-btn {
+            padding: 15px 30px;
+            font-size: 20px;
+            background: linear-gradient(45deg, #4CAF50, #45a049);
             color: white;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin: 20px 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .access-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
         .quick-links {
             display: flex;
-            gap: 10px;
-            margin-bottom: 15px;
+            gap: 15px;
+            margin: 20px 0;
             flex-wrap: wrap;
+            justify-content: center;
         }
 
         .quick-link {
-            padding: 6px 12px;
+            padding: 10px 20px;
             background: rgba(255, 255, 255, 0.2);
-            border-radius: 15px;
+            border-radius: 25px;
             cursor: pointer;
-            font-size: 12px;
+            font-size: 14px;
             transition: all 0.3s ease;
+            border: 1px solid rgba(255, 255, 255, 0.3);
         }
 
         .quick-link:hover {
             background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
         }
 
-        .time-tracker {
+        .info-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(15px);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 20px 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .info-section h3 {
+            margin-bottom: 15px;
+            color: #4ECDC4;
+        }
+
+        .info-section p {
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        .fullscreen-btn {
             position: fixed;
-            top: 100px;
+            top: 20px;
             right: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 10px 15px;
-            border-radius: 10px;
-            font-size: 16px;
+            background: #FF4757;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
             font-weight: bold;
-            z-index: 500;
+            z-index: 1000;
             display: none;
         }
 
         @media (max-width: 768px) {
-            .sidebar {
-                width: 50px;
+            .access-panel {
+                padding: 20px;
             }
             
-            .main-content {
-                margin-left: 60px;
+            .parsec-frame {
+                height: 60vh;
             }
             
-            .games-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+            .logo {
+                font-size: 28px;
             }
             
-            .search-container {
-                margin: 0 15px;
+            .access-btn {
+                font-size: 16px;
+                padding: 12px 24px;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Time Tracker -->
-    <div class="time-tracker" id="timeTracker">
-        ⏱️ <span id="playTime">00:00:00</span>
-    </div>
+    <button class="fullscreen-btn" id="exitFullscreen" onclick="exitFullscreen()">Exit Fullscreen</button>
 
-    <!-- Header -->
     <div class="header">
-        <div class="logo">PlayZone.io</div>
-        <div class="search-container">
-            <input type="text" class="search-input" placeholder="Search games..." id="searchInput">
-            <button class="search-btn" onclick="searchGames()">🔍</button>
-        </div>
-        <div class="user-section">
-            <span id="userInfo"></span>
-            <button class="login-btn" id="loginBtn" onclick="showLoginModal()">Login</button>
-            <button class="logout-btn" id="logoutBtn" onclick="logout()" style="display: none;">Logout</button>
-            <button class="dev-btn" onclick="showSection('dev')">Dev</button>
-        </div>
+        <div class="logo">Parsec Unblocked</div>
+        <div class="subtitle">Access Remote Gaming Anywhere</div>
     </div>
 
-    <!-- Sidebar -->
-    <div class="sidebar">
-        <div class="sidebar-item active" onclick="showSection('games')" title="Games">🎮</div>
-        <div class="sidebar-item" onclick="showSection('browser')" title="Browser">🌐</div>
-        <div class="sidebar-item" onclick="showSection('leaderboard')" title="Leaderboard">🏆</div>
-        <div class="sidebar-item" onclick="showSection('dev')" title="Developer">⚙️</div>
-    </div>
-
-    <!-- Main Content -->
-    <div class="main-content">
-        <!-- Games Section -->
-        <div id="games" class="games-section">
-            <h2 class="section-title">🎮 Unblocked Games</h2>
-            <div class="games-grid" id="gamesGrid"></div>
-        </div>
-
-        <!-- Browser Section -->
-        <div id="browser" class="browser-section">
-            <h2 class="section-title">🌐 Unblocked Browser</h2>
+    <div class="container">
+        <div class="access-panel">
+            <h2 style="margin-bottom: 20px;">🎮 Access Parsec</h2>
+            <p style="margin-bottom: 30px; opacity: 0.8;">
+                Click below to access Parsec for remote gaming and desktop streaming
+            </p>
+            
             <div class="quick-links">
-                <div class="quick-link" onclick="loadSite('https://google.com')">Google</div>
-                <div class="quick-link" onclick="loadSite('https://youtube.com')">YouTube</div>
-                <div class="quick-link" onclick="loadSite('https://github.com')">GitHub</div>
-                <div class="quick-link" onclick="loadSite('https://reddit.com')">Reddit</div>
-                <div class="quick-link" onclick="loadSite('https://discord.com')">Discord</div>
-                <div class="quick-link" onclick="loadSite('https://coolmathgames.com')">Cool Math</div>
+                <div class="quick-link" onclick="loadParsec('web')">Web Client</div>
+                <div class="quick-link" onclick="loadParsec('download')">Download Page</div>
+                <div class="quick-link" onclick="loadParsec('support')">Support</div>
             </div>
-            <div class="browser-controls">
-                <input type="text" class="url-input" id="urlInput" placeholder="Enter website URL...">
-                <button class="browser-btn" onclick="loadSite()">Go</button>
-                <button class="browser-btn" onclick="toggleFullscreen()">Fullscreen</button>
-            </div>
-            <iframe id="browserFrame" class="browser-frame"></iframe>
+            
+            <button class="access-btn" onclick="loadParsec('main')">Launch Parsec</button>
+            <button class="access-btn" onclick="toggleFullscreen()" style="background: linear-gradient(45deg, #2196F3, #1976D2);">Fullscreen</button>
         </div>
 
-        <!-- Leaderboard Section -->
-        <div id="leaderboard" class="leaderboard-section">
-            <h2 class="section-title">🏆 Play Time Leaderboard</h2>
-            <div class="leaderboard-container">
-                <div id="leaderboardList">
-                    <!-- Leaderboard will be populated here -->
-                </div>
-            </div>
+        <iframe id="parsecFrame" class="parsec-frame" style="display: none;"></iframe>
+
+        <div class="info-section">
+            <h3>What is Parsec?</h3>
+            <p>
+                Parsec is a powerful remote desktop application that lets you stream games and applications 
+                from your computer to any device. Perfect for accessing your gaming PC from school, work, 
+                or anywhere with an internet connection.
+            </p>
         </div>
 
-        <!-- Dev Section -->
-        <div id="dev" class="dev-section">
-            <h2 class="section-title">⚙️ Developer Portal</h2>
-            <div class="dev-auth" id="devAuth">
-                <h3>Developer Access</h3>
-                <p style="margin: 20px 0;">Enter the developer password to access the game management panel.</p>
-                <div class="form-group">
-                    <input type="password" id="devPassword" placeholder="Developer Password">
-                </div>
-                <button class="btn btn-primary" onclick="authenticateDev()">Access Panel</button>
-            </div>
-
-            <div class="dev-panel" id="devPanel">
-                <h3>Add New Game</h3>
-                <div class="form-group">
-                    <label for="gameTitle">Game Title</label>
-                    <input type="text" id="gameTitle">
-                </div>
-                <div class="form-group">
-                    <label for="gameUrl">Game URL</label>
-                    <input type="url" id="gameUrl">
-                </div>
-                <div class="form-group">
-                    <label for="gameDescription">Description</label>
-                    <textarea id="gameDescription"></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="gameIcon">Icon (emoji)</label>
-                    <input type="text" id="gameIcon" maxlength="2" placeholder="🎮">
-                </div>
-                <div class="form-group">
-                    <label for="gameCategory">Category</label>
-                    <select id="gameCategory">
-                        <option value="action">Action</option>
-                        <option value="puzzle">Puzzle</option>
-                        <option value="racing">Racing</option>
-                        <option value="io">IO Games</option>
-                        <option value="arcade">Arcade</option>
-                        <option value="adventure">Adventure</option>
-                    </select>
-                </div>
-                <button class="btn btn-primary" onclick="addGame()">Add Game</button>
-
-                <div class="game-management">
-                    <h3>Manage Games</h3>
-                    <div class="game-list" id="gameList"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Login Modal -->
-    <div class="modal" id="loginModal">
-        <div class="modal-content">
-            <span class="close-modal" onclick="closeLoginModal()">&times;</span>
-            <h3 style="margin-bottom: 20px;">Login to Track Play Time</h3>
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" placeholder="Enter your username">
-            </div>
-            <button class="btn btn-primary" onclick="login()">Login</button>
+        <div class="info-section">
+            <h3>How to Use</h3>
+            <p>
+                1. Click "Launch Parsec" to access the web interface<br>
+                2. Sign in or create a free Parsec account<br>
+                3. Connect to your home computer or join a friend's session<br>
+                4. Enjoy gaming remotely with low latency streaming
+            </p>
         </div>
     </div>
 
     <script>
-        // Game data with more realistic games
-        let games = [
-            {
-                id: 1,
-                title: "Time Shooter 2",
-                url: "https://timestop.frvr.com/",
-                description: "Bullet-time action where time moves when you move",
-                icon: "⏰",
-                category: "action"
-            },
-            {
-                id: 2,
-                title: "Paper.io 2",
-                url: "https://paper-io.com/",
-                description: "Conquer territory in this multiplayer strategy game",
-                icon: "📄",
-                category: "io"
-            },
-            {
-                id: 3,
-                title: "Slither.io",
-                url: "https://slither.io/",
-                description: "Become the longest snake in the multiplayer arena",
-                icon: "🐍",
-                category: "io"
-            },
-            {
-                id: 4,
-                title: "Krunker.io",
-                url: "https://krunker.io/",
-                description: "Fast-paced browser FPS with pixelated graphics",
-                icon: "🔫",
-                category: "action"
-            },
-            {
-                id: 5,
-                title: "Shell Shockers",
-                url: "https://shellshock.io/",
-                description: "Egg-based multiplayer shooting game",
-                icon: "🥚",
-                category: "action"
-            },
-            {
-                id: 6,
-                title: "Drift Hunters",
-                url: "https://drifthunters.unblocked.games/",
-                description: "Ultimate car drifting experience",
-                icon: "🏎️",
-                category: "racing"
-            },
-            {
-                id: 7,
-                title: "Run 3",
-                url: "https://run3game.com/",
-                description: "Endless running through space tunnels",
-                icon: "🏃",
-                category: "arcade"
-            },
-            {
-                id: 8,
-                title: "Happy Wheels",
-                url: "https://totaljerkface.com/happy_wheels.php",
-                description: "Ragdoll physics obstacle course game",
-                icon: "🦽",
-                category: "action"
-            },
-            {
-                id: 9,
-                title: "2048",
-                url: "https://play2048.co/",
-                description: "Combine numbers to reach 2048",
-                icon: "🔢",
-                category: "puzzle"
-            },
-            {
-                id: 10,
-                title: "Subway Surfers",
-                url: "https://poki.com/en/g/subway-surfers",
-                description: "Endless runner through subway tracks",
-                icon: "🚇",
-                category: "arcade"
-            },
-            {
-                id: 11,
-                title: "Among Us",
-                url: "https://amongus.io/",
-                description: "Find the impostor among the crew",
-                icon: "👨‍🚀",
-                category: "adventure"
-            },
-            {
-                id: 12,
-                title: "Cookie Clicker",
-                url: "https://orteil.dashnet.org/cookieclicker/",
-                description: "Click cookies to build a baking empire",
-                icon: "🍪",
-                category: "arcade"
-            },
-            {
-                id: 13,
-                title: "Tetris",
-                url: "https://tetris.com/play-tetris",
-                description: "Classic block-fitting puzzle game",
-                icon: "🧩",
-                category: "puzzle"
-            },
-            {
-                id: 14,
-                title: "Slope",
-                url: "https://slope-game.github.io/",
-                description: "Control a ball rolling down endless slopes",
-                icon: "⚽",
-                category: "arcade"
-            },
-            {
-                id: 15,
-                title: "Geometry Dash",
-                url: "https://scratch.mit.edu/projects/105500895/",
-                description: "Jump and fly through geometric obstacles",
-                icon: "🔷",
-                category: "arcade"
-            },
-            {
-                id: 16,
-                title: "Flappy Bird",
-                url: "https://flappybird.io/",
-                description: "Navigate a bird through pipe obstacles",
-                icon: "🐦",
-                category: "arcade"
-            },
-            {
-                id: 17,
-                title: "Zombs Royale",
-                url: "https://zombsroyale.io/",
-                description: "2D battle royale with zombies",
-                icon: "🧟",
-                category: "action"
-            },
-            {
-                id: 18,
-                title: "Moto X3M",
-                url: "https://motox3m.com/",
-                description: "Bike racing with stunts and obstacles",
-                icon: "🏍️",
-                category: "racing"
-            },
-            {
-                id: 19,
-                title: "Bloons TD",
-                url: "https://ninjakiwi.com/Games/Tower-Defense/Bloons-Tower-Defense.html",
-                description: "Tower defense against balloon invasion",
-                icon: "🎈",
-                category: "puzzle"
-            },
-            {
-                id: 20,
-                title: "Stickman Hook",
-                url: "https://poki.com/en/g/stickman-hook",
-                description: "Swing like Spider-Man with a stickman",
-                icon: "🕷️",
-                category: "arcade"
-            }
-        ];
-
-        // User and game state
-        let currentUser = null;
-        let playStartTime = null;
-        let playTimer = null;
-        let leaderboard = [];
-        const DEV_PASSWORD = "gamedev123"; // Change this to your desired password
-
-        // Initialize
-        function init() {
-            loadUserData();
-            loadLeaderboard();
-            loadCustomGames();
-            renderGames();
-            updateUserInterface();
-            renderLeaderboard();
+        function loadParsec(type) {
+            const frame = document.getElementById('parsecFrame');
+            let url;
             
-            // Setup search
-            document.getElementById('searchInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    searchGames();
-                }
-            });
+            switch(type) {
+                case 'main':
+                case 'web':
+                    url = 'https://web.parsec.app/';
+                    break;
+                case 'download':
+                    url = 'https://parsec.app/downloads';
+                    break;
+                case 'support':
+                    url = 'https://support.parsec.app/';
+                    break;
+                default:
+                    url = 'https://parsec.app/';
+            }
             
-            // Setup URL input
-            document.getElementById('urlInput').addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    loadSite();
-                }
-            });
+            frame.src = url;
+            frame.style.display = 'block';
+            
+            // Smooth scroll to frame
+            frame.scrollIntoView({ behavior: 'smooth' });
         }
 
-        // User management
-        function showLoginModal() {
-            document.getElementById('loginModal').style.display = 'block';
-        }
-
-        function closeLoginModal() {
-            document.getElementById('loginModal').style.display = 'none';
-        }
-
-        function login() {
-            const username = document.getElementById('username').value.trim();
-            if (username) {
-                currentUser = {
-                    username: username,
-                    totalPlayTime: 0,
-                    loginTime: Date.now()
-                };
-                saveUserData();
-                updateUserInterface();
-                closeLoginModal();
-                document.getElementById('username').value = '';
+        function toggleFullscreen() {
+            const frame = document.getElementById('parsecFrame');
+            
+            if (!frame.src) {
+                alert('Please launch Parsec first');
+                return;
             }
-        }
 
-        function logout() {
-            if (playTimer) {
-                stopPlayTimer();
-            }
-            currentUser = null;
-            localStorage.removeItem('currentUser');
-            updateUserInterface();
-        }
-
-        function saveUserData() {
-            if (currentUser) {
-                localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            }
-        }
-
-        function loadUserData() {
-            const saved = localStorage.getItem('currentUser');
-            if (saved) {
-                currentUser = JSON.parse(saved);
-            }
-        }
-
-        function updateUserInterface() {
-            const userInfo = document.getElementById('userInfo');
-            const loginBtn = document.getElementById('loginBtn');
-            const logoutBtn = document.getElementById('logoutBtn');
-
-            if (currentUser) {
-                userInfo.textContent = `👤 ${currentUser.username}`;
-                loginBtn.style.display = 'none';
-                logoutBtn.style.display = 'block';
+            if (frame.style.position === 'fixed') {
+                exitFullscreen();
             } else {
-                userInfo.textContent = '';
-                loginBtn.style.display = 'block';
-                logoutBtn.style.display = 'none';
+                frame.style.position = 'fixed';
+                frame.style.top = '0';
+                frame.style.left = '0';
+                frame.style.width = '100vw';
+                frame.style.height = '100vh';
+                frame.style.zIndex = '999';
+                frame.style.borderRadius = '0';
+                document.getElementById('exitFullscreen').style.display = 'block';
             }
         }
 
-        // Play time tracking
-        function startPlayTimer() {
-            if (!currentUser) return;
-            
-            playStartTime = Date.now();
-            document.getElementById('timeTracker').style.display = 'block';
-            
-            playTimer = setInterval(() => {
-                const elapsed = Date.now() - playStartTime;
-                const hours = Math.floor(elapsed / 3600000);
-                const minutes = Math.floor((elapsed % 3600000) / 60000);
-                const seconds = Math.floor((elapsed % 60000) / 1000);
-                
-                document.getElementById('playTime').textContent = 
-                    `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            }, 1000);
+        function exitFullscreen() {
+            const frame = document.getElementById('parsecFrame');
+            frame.style.position = 'static';
+            frame.style.width = '100%';
+            frame.style.height = '80vh';
+            frame.style.zIndex = 'auto';
+            frame.style.borderRadius = '15px';
+            document.getElementById('exitFullscreen').style.display = 'none';
         }
 
-        function stopPlayTimer() {
-            if (playTimer && currentUser && playStartTime) {
-                clearInterval(playTimer);
-                const sessionTime = Date.now() - playStartTime;
-                currentUser.totalPlayTime += sessionTime;
-                updateLeaderboard();
-                saveUserData();
-                document.getElementById('timeTracker').style.display = 'none';
-                playTimer = null;
-                playStartTime = null;
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                exitFullscreen();
             }
-        }
+        });
 
-        // Leaderboard
-        function updateLeaderboard() {
-            if (!currentUser) return;
-            
-            let board = [...leaderboard];
-            const existingIndex = board.findIndex(entry => entry.username === currentUser.username);
-            
-            if (existingIndex >= 0) {
-                board[existingIndex].totalPlayTime = currentUser.totalPlayTime;
-            } else {
-                board.push({
-                    username: currentUser.username,
-                    totalPlayTime: currentUser.totalPlayTime
-                });
-            }
-            
-            board.sort((a, b) => b.totalPlayTime - a.totalPlayTime);
-            board = board.slice(0, 5); // Keep only top 5
-            
-            leaderboard = board;
-            localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
-            renderLeaderboard();
+        // Auto-load Parsec on page load
+        window.addEventListener('load', function() {
+            // Uncomment the line below to auto-launch Parsec
+            // loadParsec('main');
+        });
+    </script>
+</body>
+</html>
